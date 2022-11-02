@@ -1,0 +1,7 @@
+<resources>
+    <string name="course_home">Course Scheduler Home</string>
+    <string name="term_name">Enter Term Name.....</string>
+    <string name="submit">Create New Term</string>
+    <string name="terms">View All Terms</string>
+    <string name="term_tracker">Term Tracker App</string>
+</resources>
