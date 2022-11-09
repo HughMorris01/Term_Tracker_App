@@ -8,16 +8,16 @@ import android.view.View;
 
 import wgu.assessments.scheduler.R;
 
-public class CourseList extends AppCompatActivity {
+public class AssessmentDetail extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_list);
+        setContentView(R.layout.activity_assessment_detail);
     }
 
-    public void toHomeScreen(View view) {
-        Intent intent = new Intent(CourseList.this, MainActivity.class);
+    public void saveAssessment(View view) {
+        Intent intent = new Intent(AssessmentDetail.this, CourseDetail.class);
         startActivity(intent);
     }
 }

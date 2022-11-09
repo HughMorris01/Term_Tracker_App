@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="termListItemStyle">
+        <item name="android:textSize">@dimen/list_text_size</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/teal_200</item>
+    </style>
+    <style name="headerTextStyle">
+        <item name="android:textSize">@dimen/medium_header</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/teal_200</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:padding">5dp</item>
+    </style>
+</resources>
