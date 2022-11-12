@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Save Term"
+        android:id="@+id/saveTerm"
+        android:onClick="onOptionsItemsSelected"/>
+    <item android:title="Delete Term"
+        android:id="@+id/deleteTerm"
+        android:onClick="onOptionsItemsSelected" />
+    <item android:title="Add Course"
+        android:id="@+id/addCourse"
+        android:onClick="onOptionsItemsSelected"/>
+
+
+</menu>

@@ -2,12 +2,9 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Save Product"
-        android:id="@+id/productsave"/>
-    <item android:title="Delete Product"
-        android:id="@+id/productdelete"/>
-    <item android:title="Add Sample Parts"
-        android:id="@+id/addSampleParts"
+    <item android:title="Create New Term"
+        android:id="@+id/createTerm"
+        app:showAsAction="never"
         android:onClick="onOptionsItemsSelected"/>
 
 </menu>

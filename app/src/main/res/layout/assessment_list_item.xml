@@ -2,48 +2,68 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardCornerRadius="50dp"
-        app:cardBackgroundColor="@color/black">
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        app:cardCornerRadius="15dp"
+        app:cardBackgroundColor="@color/teal_200">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/purple_200"
-            android:layout_margin="5dp" >
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/assessmentItemImage"
+                android:layout_width="50dp"
+                android:layout_height="33dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_outdoor_grill_24" />
 
             <TextView
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:id="@+id/assessmentListItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/assessmentItemImage"
+                android:layout_marginTop="5dp"
+                style="@style/termListItemStyle"
+                android:text="Assessment Name" />
 
             <TextView
                 android:id="@+id/assessmentListItem2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView2"
                 app:layout_constraintLeft_toRightOf="@id/assessmentListItem"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                style="@style/termListItemStyle"
+                android:text="Start Date" />
 
             <TextView
                 android:id="@+id/assessmentListItem3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView3"
                 app:layout_constraintLeft_toRightOf="@id/assessmentListItem2"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                style="@style/termListItemStyle"
+                android:text="End Date" />
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,13 +22,15 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
     private final LayoutInflater mInflater;
 
     class TermViewHolder extends RecyclerView.ViewHolder {
-        private final TextView termIdTextView;
-        private final TextView termNameTextView;
+        private final TextView termListItem;
+        private final TextView termListItem2;
+        private final TextView termListItem3;
 
         private TermViewHolder(View itemView) {
             super(itemView);
-            termIdTextView = itemView.findViewById(R.id.termIdTextView);
-            termNameTextView = itemView.findViewById(R.id.termNameTextView);
+            termListItem = itemView.findViewById(R.id.termListItem);
+            termListItem2 = itemView.findViewById(R.id.termListItem2);
+            termListItem3 = itemView.findViewById(R.id.termListItem3);
 
             itemView.setOnClickListener(new View.OnClickListener(){
 
@@ -64,13 +66,15 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
     public void onBindViewHolder(@NonNull TermAdapter.TermViewHolder holder, int position) {
         if(mTerms != null) {
             Term current = mTerms.get(position);
-            int termId = current.getTermId();
-            holder.termIdTextView.setText(String.valueOf(termId));
             String termName = current.getTermName();
-            holder.termNameTextView.setText(termName);
+            holder.termListItem.setText(String.valueOf(termName));
+            String termStartDate = current.getTermStartDateString();
+            holder.termListItem2.setText(termStartDate);
+            String termEndDate = current.getTermEndDateString();
+            holder.termListItem3.setText(termEndDate);
         }
         else {
-            holder.termNameTextView.setText("No terms entered");
+            holder.termListItem.setText("No terms have been entered yet");
         }
     }
 

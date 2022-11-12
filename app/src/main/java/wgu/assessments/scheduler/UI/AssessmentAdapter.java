@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import wgu.assessments.scheduler.Entity.Assessment;
-import wgu.assessments.scheduler.Entity.Course;
-import wgu.assessments.scheduler.Entity.Term;
 import wgu.assessments.scheduler.R;
 
 public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.AssessmentViewHolder> {
@@ -39,10 +37,14 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                     int position = getAdapterPosition();
                     final Assessment current = mAssessments.get(position);
                     Intent intent = new Intent(context, AssessmentDetail.class);
-                    intent.putExtra("assessmentId", String.valueOf(current.getAssessmentId()));
-                    intent.putExtra("AssessmentName", current.getAssessmentName());
+                    intent.putExtra("assessmentId", current.getAssessmentId());
+                    intent.putExtra("assessmentName", current.getAssessmentName());
                     intent.putExtra("assessmentStartDate", current.getAssessmentStartDateString());
                     intent.putExtra("assessmentEndDate", current.getAssessmentEndDateString());
+                    intent.putExtra("isObjectiveAssessment", current.getIsObjectiveAssessment());
+                    intent.putExtra("isPerformanceAssessment", current.getIsPerformanceAssessment());
+                    intent.putExtra("isAlertSet", current.getIsAlertSet());
+                    intent.putExtra("courseId", current.getCourseId());
                     context.startActivity(intent);
                 }
             });

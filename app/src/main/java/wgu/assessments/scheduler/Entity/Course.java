@@ -13,26 +13,29 @@ public class Course {
     @PrimaryKey(autoGenerate = true)
     private int courseId;
     private String courseName;
+    private int courseStatusPosition;
     private Date courseStartDate;
     private Date courseEndDate;
     private String courseInstructorName;
     private String courseInstructorPhone;
     private String courseInstructorEmail;
-    private String courseStatus;
+    private String courseNote;
     private int termId;
 
     // Constructor
-    public Course(int courseId, String courseName, Date courseStartDate, Date courseEndDate, String courseInstructorName,
-                  String courseInstructorPhone, String courseInstructorEmail,
-                  String courseStatus, int termId) {
+    public Course(int courseId, String courseName, int courseStatusPosition,
+                  Date courseStartDate, Date courseEndDate, String courseInstructorName,
+                  String courseInstructorPhone, String courseInstructorEmail, String courseNote,
+                   int termId) {
         this.courseId = courseId;
         this.courseName = courseName;
+        this.courseStatusPosition = courseStatusPosition;
         this.courseStartDate = courseStartDate;
         this.courseEndDate = courseEndDate;
         this.courseInstructorName = courseInstructorName;
         this.courseInstructorPhone = courseInstructorPhone;
         this.courseInstructorEmail = courseInstructorEmail;
-        this.courseStatus = courseStatus;
+        this.courseNote = courseNote;
         this.termId = termId;
     }
 
@@ -100,15 +103,18 @@ public class Course {
         this.courseInstructorEmail = courseInstructorEmail;
     }
 
-    public String getCourseStatus() {
-        return courseStatus;
+    public int getCourseStatusPosition() {
+        return courseStatusPosition;
     }
-    public void setCourseStatus(String courseStatus) {
-        this.courseStatus = courseStatus;
+    public void setCourseStatusPosition(int courseStatusPosition) {
+        this.courseStatusPosition = courseStatusPosition;
     }
-    public String getCourseStatusString() {
-        String courseStatus = this.courseStatus.toString();
-        return courseStatus;
+
+    public String getCourseNote() {
+        return courseNote;
+    }
+    public void setCourseNote(String courseNote) {
+        this.courseNote = courseNote;
     }
 
     public int getTermId() {
@@ -128,7 +134,7 @@ public class Course {
                 ", courseInstructorName='" + courseInstructorName + '\'' +
                 ", courseInstructorPhone='" + courseInstructorPhone + '\'' +
                 ", courseInstructorEmail='" + courseInstructorEmail + '\'' +
-                ", courseStatus=" + courseStatus +
+                ", courseNote=" + courseNote +
                 ", termId=" + termId +
                 '}';
     }

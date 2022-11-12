@@ -35,6 +35,7 @@ public class TermList extends AppCompatActivity {
         termAdapter.setTerms(termsList);
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_term_list, menu);
         return true;
@@ -42,7 +43,8 @@ public class TermList extends AppCompatActivity {
 
     public boolean onOptionsItemsSelected(MenuItem item){
         switch (item.getItemId()){
-            case android.R.id.home:
+            case R.id.createTerm:
+                createNewTerm();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -50,6 +52,19 @@ public class TermList extends AppCompatActivity {
 
 
     public void createNewTerm(View view) {
+        TermDetail.staticTermId = -1;
+        TermDetail.staticTermName = null;
+        TermDetail.staticTermStartDate = null;
+        TermDetail.staticTermEndDate = null;
+        Intent intent = new Intent(TermList.this, TermDetail.class);
+        startActivity(intent);
+    }
+
+    public void createNewTerm() {
+        TermDetail.staticTermId = -1;
+        TermDetail.staticTermName = null;
+        TermDetail.staticTermStartDate = null;
+        TermDetail.staticTermEndDate = null;
         Intent intent = new Intent(TermList.this, TermDetail.class);
         startActivity(intent);
     }

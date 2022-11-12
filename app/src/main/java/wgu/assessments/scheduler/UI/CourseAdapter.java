@@ -27,9 +27,9 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
 
         private CourseViewHolder(View itemView) {
             super(itemView);
-            courseItemView1 = itemView.findViewById(R.id.courseIdTextView);
-            courseItemView2 = itemView.findViewById(R.id.courseNameTextView);
-            courseItemView3 = itemView.findViewById(R.id.courseInstructorTextView);
+            courseItemView1 = itemView.findViewById(R.id.courseListItem);
+            courseItemView2 = itemView.findViewById(R.id.courseListItem2);
+            courseItemView3 = itemView.findViewById(R.id.courseListItem3);
             itemView.setOnClickListener(new View.OnClickListener(){
 
                 @Override
@@ -39,12 +39,13 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                     Intent intent = new Intent(context, CourseDetail.class);
                     intent.putExtra("courseId", (current.getCourseId()));
                     intent.putExtra("courseName", current.getCourseName());
+                    intent.putExtra("courseStatusPosition", current.getCourseStatusPosition());
                     intent.putExtra("courseStartDate", current.getCourseStartDateString());
                     intent.putExtra("courseEndDate", current.getCourseEndDateString());
                     intent.putExtra("courseInstructorName", current.getCourseInstructorName());
                     intent.putExtra("courseInstructorPhone", current.getCourseInstructorPhone());
                     intent.putExtra("courseInstructorEmail", current.getCourseInstructorEmail());
-                    intent.putExtra("courseStatus", current.getCourseStatus());
+                    intent.putExtra("courseNote", current.getCourseNote());
                     intent.putExtra("termId", (current.getTermId()));
                     context.startActivity(intent);
                 }
@@ -69,12 +70,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     public void onBindViewHolder(@NonNull CourseAdapter.CourseViewHolder holder, int position) {
         if(mCourses != null) {
             Course current = mCourses.get(position);
-            int courseId = current.getCourseId();
-            holder.courseItemView1.setText("#" + courseId);
             String courseName = current.getCourseName();
-            holder.courseItemView2.setText(courseName);
-            String courseInstructorName = current.getCourseInstructorName();
-            holder.courseItemView3.setText(courseInstructorName);
+            holder.courseItemView1.setText(courseName);
+            String courseStartDate = current.getCourseStartDateString();
+            holder.courseItemView2.setText(courseStartDate);
+            String courseEndDate = current.getCourseEndDateString();
+            holder.courseItemView3.setText(courseEndDate);
         }
         else {
             holder.courseItemView1.setText("");

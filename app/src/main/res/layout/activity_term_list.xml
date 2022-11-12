@@ -7,16 +7,39 @@
     android:layout_margin="5dp"
     tools:context=".UI.TermList" >
 
-    <TextView
-        android:id="@+id/header_title"
-        style="@style/headerTextStyle"
+    <LinearLayout
+        android:id="@+id/header_title1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="All Scheduled and Completed Terms"
-        android:textColor="#546E7A"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/teal_200"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView1"
+            style="@style/headerTextStyle"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="50dp"
+            android:text="Name"
+            app:layout_constraintLeft_toLeftOf="parent" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/textView1"
+            style="@style/headerTextStyle"
+            android:text="Start Date" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/textView2"
+            android:paddingStart="-20dp"
+            style="@style/headerTextStyle"
+            android:text="End Date" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/termListRecyclerView"
@@ -26,19 +49,20 @@
         android:scrollbars="vertical"
         android:padding="3dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_title"/>
+        app:layout_constraintTop_toBottomOf="@id/header_title1"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:contentDescription="Floating action button"
+        android:contentDescription="@string/create_new_term"
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        app:layout_constraintTop_toBottomOf="@id/termListRecyclerView"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
         android:clickable="true"
         android:focusable="true"
         android:onClick="createNewTerm"
-        app:srcCompat="@drawable/ic_baseline_add_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:srcCompat="@drawable/ic_baseline_add_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

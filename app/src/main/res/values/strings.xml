@@ -1,7 +1,41 @@
 <resources>
-    <string name="course_home">Course Scheduler Home</string>
-    <string name="term_name">Enter Term Name.....</string>
-    <string name="submit">Create New Term</string>
-    <string name="enter">Enter</string>
     <string name="term_tracker">Term Tracker App</string>
+    <string name="course_home">Term Tracker Home</string>
+    <string name="enter">Enter</string>
+    <string name="create_new_term">Create New Term</string>
+    <string name="term_name">Term Name: </string>
+    <string name="enter_name">Enter Name</string>
+    <string name="term_start_date">Term Start Date: </string>
+    <string name="start_date"> Choose Start Date</string>
+    <string name="term_end_date">Term End Date: </string>
+    <string name="end_date"> Choose End Date</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="add_new_course">Add New Course</string>
+    <string name="course_name">Course Name: </string>
+    <string name="course_status">Course Status: </string>
+    <string name="course_start_date">Course Start Date: </string>
+    <string name="course_end_date">Course End Date: </string>
+    <string name="course_instructor">Course Instructor: </string>
+    <string name="course_instructor_phone">Instructor Phone: </string>
+    <string name="enter_phone">Enter Phone</string>
+    <string name="course_instructor_email">Instructor Email: </string>
+    <string name="enter_email">Enter Email</string>
+    <string name="course_note">Course Note: </string>
+    <string name="add_new_assessment">Add New Assessment</string>
+    <string name="assessment_name">Assessment Name: </string>
+    <string name="assessment_start_date">Assessment Start Date: </string>
+    <string name="assessment_end_date">Assessment End Date: </string>
+    <string name="assessment_type">Assessment Type: </string>
+    <string name="objective">Objective</string>
+    <string name="performance">Performance</string>
+    <string name="set_alert">Set Alert </string>
+
+    <string name="status_spinner"/>
+    <string-array name="course_status_spinner">
+        <item>SCHEDULED</item>
+        <item>IN-PROGRESS</item>
+        <item>COMPLETED</item>
+        <item>DROPPED</item>
+    </string-array>
 </resources>

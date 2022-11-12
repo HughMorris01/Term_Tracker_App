@@ -12,28 +12,27 @@ import java.util.Locale;
 public class Assessment {
     @PrimaryKey(autoGenerate = true)
     private int assessmentId;
-
     private String assessmentName;
     private Date assessmentStartDate;
     private Date assessmentEndDate;
+    private boolean isObjectiveAssessment;
+    private boolean isPerformanceAssessment;
+    private boolean isAlertSet;
     private int courseId;
 
-
-    private boolean isObjectiveAssessment;
-
     // Constructor
-    public Assessment(int assessmentId, String assessmentName, Date assessmentStartDate, Date assessmentEndDate, Boolean isObjectiveAssessment, int courseId) {
+    public Assessment(int assessmentId, String assessmentName, Date assessmentStartDate, Date assessmentEndDate,
+                      Boolean isObjectiveAssessment, Boolean isPerformanceAssessment, Boolean isAlertSet, int courseId) {
         this.assessmentId = assessmentId;
         this.assessmentName = assessmentName;
         this.assessmentStartDate = assessmentStartDate;
         this.assessmentEndDate = assessmentEndDate;
-        this.courseId = courseId;
         this.isObjectiveAssessment = isObjectiveAssessment;
+        this.isPerformanceAssessment = isPerformanceAssessment;
+        this.isAlertSet = isAlertSet;
+        this.courseId = courseId;
     }
 
-    public Assessment(int tmpAssessmentId, String tmpAssessmentName, Date tmpAssessmentStartDate, Date tmpAssessmentEndDate, int tmpCourseId) {
-
-    }
 
     // Getters and Setters
     public int getAssessmentId() {
@@ -77,13 +76,18 @@ public class Assessment {
         return assessmentEndDateString;
     }
 
-    public boolean isObjectiveAssessment() {
+    public boolean getIsObjectiveAssessment() {
         return isObjectiveAssessment;
     }
-
     public void setIsObjectiveAssessment(boolean objectiveAssessment) {
         isObjectiveAssessment = objectiveAssessment;
     }
+
+    public boolean getIsPerformanceAssessment() { return isPerformanceAssessment; }
+    public void setIsPerformanceAssessment(boolean performanceAssessment) { isPerformanceAssessment = performanceAssessment; }
+
+    public boolean getIsAlertSet() { return isAlertSet; }
+    public void setIsAlertSet(boolean alertSet) { isAlertSet = alertSet; }
 
     public int getCourseId() {
         return courseId;
@@ -99,6 +103,7 @@ public class Assessment {
                 ", assessmentName='" + assessmentName + '\'' +
                 ", assessmentStartDate=" + assessmentStartDate +
                 ", assessmentEndDate=" + assessmentEndDate +
+                ", isObjectiveAssessment=" + isObjectiveAssessment +
                 ", courseId=" + courseId +
                 '}';
     }
