@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,7 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,6 +29,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import wgu.assessments.scheduler.Database.Repository;
 import wgu.assessments.scheduler.Entity.Assessment;
@@ -51,6 +56,7 @@ public class CourseDetail extends AppCompatActivity {
     EditText editCourseInstructorPhone;
     EditText editCourseInstructorEmail;
     EditText editCourseNote;
+    CheckBox setCourseAlertsCheckBox;
 
     int courseId;
     String courseName;
@@ -74,7 +80,7 @@ public class CourseDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_detail);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         courseId = getIntent().getIntExtra("courseId", -1);
@@ -119,6 +125,7 @@ public class CourseDetail extends AppCompatActivity {
         editCourseInstructorPhone = findViewById(R.id.editInstructorPhone);
         editCourseInstructorEmail = findViewById(R.id.editInstructorEmail);
         editCourseNote = findViewById(R.id.editCourseNote);
+        setCourseAlertsCheckBox = findViewById(R.id.setCourseAlertsCheckBox);
 
         editCourseName.setText(courseName);
         editCourseStartDate.setText(courseStartDate);
@@ -147,7 +154,7 @@ public class CourseDetail extends AppCompatActivity {
         editCourseStartDate.setOnClickListener(view -> {
             String dateString = editCourseStartDate.getText().toString();
             try {
-                startDateCalendar.setTime(simpleDateFormat.parse(dateString));
+                startDateCalendar.setTime(Objects.requireNonNull(simpleDateFormat.parse(dateString)));
             } catch (ParseException pe) {
                 pe.printStackTrace();
             }
@@ -163,7 +170,7 @@ public class CourseDetail extends AppCompatActivity {
         editCourseEndDate.setOnClickListener(view -> {
             String dateString = editCourseEndDate.getText().toString();
             try {
-                endDateCalendar.setTime(simpleDateFormat.parse(dateString));
+                endDateCalendar.setTime(Objects.requireNonNull(simpleDateFormat.parse(dateString)));
             } catch (ParseException pe) {
                 pe.printStackTrace();
             }
@@ -196,6 +203,7 @@ public class CourseDetail extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     public boolean onOptionsItemsSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.saveCourse:
@@ -211,7 +219,8 @@ public class CourseDetail extends AppCompatActivity {
                 shareNote();
                 return true;
             case R.id.notify:
-                setNotification();
+                setStartNotification();
+                setEndNotification();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -251,8 +260,12 @@ public class CourseDetail extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.US);
         Course course;
         if(courseId == -1) {
+            int newCourseId;
+            if (repository.getAllCourses().size() != 0) {
+                newCourseId = repository.getAllCourses().get(repository.getAllCourses().size() - 1).getCourseId() + 1;
+            }
+            else {newCourseId = 1;}
             try {
-                int newCourseId = repository.getAllCourses().get(repository.getAllCourses().size()-1).getCourseId()+1;
                 String courseName = editCourseName.getText().toString();
                 int courseStatusPosition = courseStatusSpinner.getSelectedItemPosition();
                 Date startDate = simpleDateFormat.parse(editCourseStartDate.getText().toString());
@@ -286,6 +299,10 @@ public class CourseDetail extends AppCompatActivity {
         }
 
         Intent intent = new Intent(CourseDetail.this, TermDetail.class);
+        if (setCourseAlertsCheckBox.isChecked()){
+            setStartNotification();
+            setEndNotification();
+        }
         startActivity(intent);
     }
 
@@ -295,8 +312,12 @@ public class CourseDetail extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.US);
         Course course;
         if(courseId == -1) {
+            int newCourseId;
+            if (repository.getAllCourses().size() != 0) {
+                newCourseId = repository.getAllCourses().get(repository.getAllCourses().size() - 1).getCourseId() + 1;
+            }
+            else {newCourseId = 1;}
             try {
-                int newCourseId = repository.getAllCourses().get(repository.getAllCourses().size()-1).getCourseId()+1;
                 String courseName = editCourseName.getText().toString();
                 int courseStatusPosition = courseStatusSpinner.getSelectedItemPosition();
                 Date startDate = simpleDateFormat.parse(editCourseStartDate.getText().toString());
@@ -330,6 +351,10 @@ public class CourseDetail extends AppCompatActivity {
         }
 
         Intent intent = new Intent(CourseDetail.this, TermDetail.class);
+        if (setCourseAlertsCheckBox.isChecked()){
+            setStartNotification();
+            setEndNotification();
+        }
         startActivity(intent);
     }
 
@@ -367,7 +392,7 @@ public class CourseDetail extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public Boolean shareNote() {
+    public void shareNote() {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TITLE, "This is the shared note");
@@ -375,10 +400,9 @@ public class CourseDetail extends AppCompatActivity {
         sendIntent.setType("text/plain");
         Intent shareIntent = Intent.createChooser(sendIntent, null);
         startActivity(shareIntent);
-        return true;
     }
 
-    public Boolean setNotification() {
+    public void setStartNotification() {
         String startDateString = editCourseStartDate.getText().toString();
         Date startDate = null;
         try {
@@ -386,7 +410,29 @@ public class CourseDetail extends AppCompatActivity {
         } catch (ParseException pe) {
             pe.printStackTrace();
         }
-        Intent intent = new Intent(CourseDetail.this, CourseReceiver.class);
-        return true;
+        assert startDate != null;
+        long trigger = startDate.getTime();
+        Intent intent = new Intent(CourseDetail.this, AppReceiver.class);
+        intent.putExtra("key", editCourseName.getText().toString() + " starts today!");
+        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent = PendingIntent.getBroadcast(CourseDetail.this, MainActivity.numAlert++, intent,0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, pendingIntent);
+    }
+
+    public void setEndNotification() {
+        String endDateString = editCourseEndDate.getText().toString();
+        Date endDate = null;
+        try {
+            endDate = simpleDateFormat.parse(endDateString);
+        } catch (ParseException pe) {
+            pe.printStackTrace();
+        }
+        assert endDate != null;
+        long trigger2 = endDate.getTime();
+        Intent intent2 = new Intent(CourseDetail.this, AppReceiver.class);
+        intent2.putExtra("key", courseName + " ends today!");
+        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent2 = PendingIntent.getBroadcast(CourseDetail.this, MainActivity.numAlert++, intent2,0);
+        AlarmManager alarmManager2 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager2.set(AlarmManager.RTC_WAKEUP, trigger2, pendingIntent2);
     }
 }

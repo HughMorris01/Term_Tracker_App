@@ -32,6 +32,8 @@
     <string name="set_alert">Set Alert </string>
 
     <string name="status_spinner"/>
+    <string name="channel_name">myChannel</string>
+    <string name="channel_description">myChannelDescription</string>
     <string-array name="course_status_spinner">
         <item>SCHEDULED</item>
         <item>IN-PROGRESS</item>

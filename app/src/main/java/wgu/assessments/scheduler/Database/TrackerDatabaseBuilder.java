@@ -14,7 +14,7 @@ import wgu.assessments.scheduler.Entity.Assessment;
 import wgu.assessments.scheduler.Entity.Course;
 import wgu.assessments.scheduler.Entity.Term;
 
-@Database(entities = {Term.class, Course.class, Assessment.class}, version = 34, exportSchema = false)
+@Database(entities = {Term.class, Course.class, Assessment.class}, version = 40, exportSchema = false)
 @TypeConverters(DataConverter.class)
 public abstract class TrackerDatabaseBuilder extends RoomDatabase {
     public abstract TermDAO termDAO();

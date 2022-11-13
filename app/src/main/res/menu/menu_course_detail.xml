@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="Save Course"
         android:id="@+id/saveCourse"
@@ -14,7 +13,7 @@
     <item android:title="Share Note"
         android:id="@+id/shareNote"
         android:onClick="onOptionsItemsSelected" />
-    <item android:title="Notify"
+    <item android:title="Set Notifications"
         android:id="@+id/notify"
         android:onClick="onOptionsItemsSelected"/>
 

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import wgu.assessments.scheduler.Database.Repository;
 import wgu.assessments.scheduler.Entity.Course;
@@ -28,10 +30,10 @@ import wgu.assessments.scheduler.Entity.Term;
 import wgu.assessments.scheduler.R;
 
 public class TermDetail extends AppCompatActivity {
-    public static int staticTermId;
-    public static String staticTermName;
-    public static String staticTermStartDate;
-    public static String staticTermEndDate;
+    public static int staticTermId = -1;
+    public static String staticTermName = null;
+    public static String staticTermStartDate = null;
+    public static String staticTermEndDate = null;
 
     EditText editTermName;
     TextView editTermStartDate;
@@ -51,7 +53,7 @@ public class TermDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_detail);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         termId = getIntent().getIntExtra("termId", -1);
         if (termId == -1 ) {
@@ -80,7 +82,7 @@ public class TermDetail extends AppCompatActivity {
             try {
                 String dateFormat="MM/dd/yy";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.US);
-                startDateCalendar.setTime(simpleDateFormat.parse(dateString));
+                startDateCalendar.setTime(Objects.requireNonNull(simpleDateFormat.parse(dateString)));
             } catch (ParseException pe) {
                 pe.printStackTrace();
             }
@@ -98,7 +100,7 @@ public class TermDetail extends AppCompatActivity {
             try {
                 String dateFormat="MM/dd/yy";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.US);
-                endDateCalendar.setTime(simpleDateFormat.parse(dateString));
+                endDateCalendar.setTime(Objects.requireNonNull(simpleDateFormat.parse(dateString)));
             } catch (ParseException pe) {
                 pe.printStackTrace();
             }
@@ -131,6 +133,7 @@ public class TermDetail extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     public boolean onOptionsItemsSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.saveTerm:
@@ -196,18 +199,23 @@ public class TermDetail extends AppCompatActivity {
     }
 
     public void onSave(View view) {
-        Repository repository = new Repository(getApplication());
+        Repository repository1 = new Repository(getApplication());
         String dateFormat="MM/dd/yy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.US);
         Term term;
         if(termId == -1) {
-            int newId = repository.getAllTerms().get(repository.getAllTerms().size()-1).getTermId()+1;
+            int newId;
+            if (repository1.getAllTerms().size() != 0) {
+                newId = repository1.getAllTerms().get(repository1.getAllTerms().size() - 1).getTermId() + 1;
+            }
+            else {newId = 1;}
 
             try {
                 Date startDate = simpleDateFormat.parse(editTermStartDate.getText().toString());
                 Date endDate = simpleDateFormat.parse(editTermEndDate.getText().toString());
-                term = new Term(newId, editTermName.getText().toString(), startDate, endDate);
-                repository.insertTerm(term);
+                String termName = editTermName.getText().toString();
+                term = new Term(newId, termName, startDate, endDate);
+                repository1.insertTerm(term);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -215,8 +223,9 @@ public class TermDetail extends AppCompatActivity {
             try {
                 Date startDate = simpleDateFormat.parse(editTermStartDate.getText().toString());
                 Date endDate = simpleDateFormat.parse(editTermEndDate.getText().toString());
-                term = new Term(termId, editTermName.getText().toString(), startDate, endDate);
-                repository.updateTerm(term);
+                String termName = editTermName.getText().toString();
+                term = new Term(termId, termName, startDate, endDate);
+                repository1.updateTerm(term);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -226,18 +235,22 @@ public class TermDetail extends AppCompatActivity {
     }
 
     public void onSave() {
-        Repository repository = new Repository(getApplication());
+        Repository repository1 = new Repository(getApplication());
         String dateFormat="MM/dd/yy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.US);
         Term term;
         if(termId == -1) {
-            int newId = repository.getAllTerms().get(repository.getAllTerms().size()-1).getTermId()+1;
+            int newId;
+            if (repository1.getAllTerms().size() != 0) {
+                newId = repository1.getAllTerms().get(repository1.getAllTerms().size() - 1).getTermId() + 1;
+            }
+            else {newId = 1;}
 
             try {
                 Date startDate = simpleDateFormat.parse(editTermStartDate.getText().toString());
                 Date endDate = simpleDateFormat.parse(editTermEndDate.getText().toString());
                 term = new Term(newId, editTermName.getText().toString(), startDate, endDate);
-                repository.insertTerm(term);
+                repository1.insertTerm(term);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -246,7 +259,7 @@ public class TermDetail extends AppCompatActivity {
                 Date startDate = simpleDateFormat.parse(editTermStartDate.getText().toString());
                 Date endDate = simpleDateFormat.parse(editTermEndDate.getText().toString());
                 term = new Term(termId, editTermName.getText().toString(), startDate, endDate);
-                repository.updateTerm(term);
+                repository1.updateTerm(term);
             } catch (Exception e) {
                 e.printStackTrace();
             }

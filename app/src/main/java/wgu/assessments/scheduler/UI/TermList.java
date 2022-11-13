@@ -10,9 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import wgu.assessments.scheduler.Database.Repository;
 import wgu.assessments.scheduler.Entity.Term;
@@ -24,7 +23,7 @@ public class TermList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_list);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         Repository repo = new Repository(getApplication());
         RecyclerView recyclerView = findViewById(R.id.termListRecyclerView);
@@ -42,10 +41,9 @@ public class TermList extends AppCompatActivity {
     }
 
     public boolean onOptionsItemsSelected(MenuItem item){
-        switch (item.getItemId()){
-            case R.id.createTerm:
-                createNewTerm();
-                return true;
+        if (item.getItemId() == R.id.createTerm) {
+            createNewTerm();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

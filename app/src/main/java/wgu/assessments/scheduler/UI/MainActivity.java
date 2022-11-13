@@ -11,11 +11,11 @@ import java.util.Date;
 import wgu.assessments.scheduler.Database.Repository;
 import wgu.assessments.scheduler.Entity.Assessment;
 import wgu.assessments.scheduler.Entity.Course;
-import wgu.assessments.scheduler.Entity.CourseStatus;
 import wgu.assessments.scheduler.Entity.Term;
 import wgu.assessments.scheduler.R;
 
 public class MainActivity extends AppCompatActivity {
+    public static int numAlert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
