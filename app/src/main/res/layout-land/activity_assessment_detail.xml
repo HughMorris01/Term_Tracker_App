@@ -83,7 +83,6 @@
             app:layout_constraintLeft_toLeftOf="@id/assessmentEndDateTextView"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="5dp"
-            android:textAlignment="center"
             style="@style/itemDataStyle"
             android:hint="@string/end_date"/>
     </LinearLayout>
@@ -113,7 +112,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/itemDataStyle"
-            android:layout_marginStart="10dp"
             android:text="@string/objective" />
 
         <RadioButton
@@ -126,14 +124,18 @@
     </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent" >
+
             <CheckBox
                 android:id="@+id/setCourseStartAlert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Set Course Start Alert"
                 app:layout_constraintLeft_toLeftOf="parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
             <CheckBox
                 android:id="@+id/setCourseEndAlert"
                 android:layout_width="wrap_content"
@@ -144,7 +146,7 @@
         </LinearLayout>
         <Button
             android:id="@+id/saveButton"
-            android:layout_width="match_parent"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="28dp"

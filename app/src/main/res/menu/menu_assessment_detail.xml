@@ -7,7 +7,10 @@
     <item android:title="Delete Assessment"
         android:id="@+id/deleteAssessment"
         android:onClick="onOptionsItemsSelected" />
-    <item android:title="Set Notifications"
-        android:id="@+id/setNotifications"
+    <item android:title="Set Start Alert"
+        android:id="@+id/startAlert"
         android:onClick="onOptionsItemsSelected"/>
+    <item android:title="Set End Alert"
+        android:id="@+id/endAlert"
+        android:onClick="onOptionsItemsSelected" />
 </menu>

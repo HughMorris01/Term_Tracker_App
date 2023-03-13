@@ -70,8 +70,10 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
             String assessmentName = current.getAssessmentName();
             holder.assessmentItemView.setText(assessmentName);
             String assessmentStartDateString = current.getAssessmentStartDateString();
+            assessmentStartDateString = "Start: " + assessmentStartDateString;
             holder.assessmentItemView2.setText(assessmentStartDateString);
             String assessmentEndDateString = current.getAssessmentEndDateString();
+            assessmentEndDateString = "End: " + assessmentEndDateString;
             holder.assessmentItemView3.setText(assessmentEndDateString);
         }
         else {

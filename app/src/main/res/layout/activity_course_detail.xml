@@ -65,7 +65,9 @@
                 android:layout_height="40dp"
                 app:layout_constraintLeft_toLeftOf="@id/courseStatusTextView"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -192,33 +194,57 @@
                 style="@style/itemDataStyle" />
         </LinearLayout>
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <CheckBox
+                android:id="@+id/setCourseStartAlert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set Course Start Alert"
+                app:layout_constraintLeft_toLeftOf="parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <CheckBox
+                android:id="@+id/setCourseEndAlert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="Set Course End Alert"
+                />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" >
-        <TextView
-            android:id="@+id/courseNoteTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/course_note"
-            style="@style/detailLabelStyle"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <CheckBox
+                android:id="@+id/courseNoteCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editCourseNote"
+                android:layout_weight="1"
+                android:onClick="displayNote"
+                android:text="Display Note" />
         <EditText
             android:id="@+id/editCourseNote"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            app:layout_constraintLeft_toRightOf="@id/courseNoteTextView"
+            app:layout_constraintLeft_toRightOf="@id/courseNoteCheckBox"
             app:layout_constraintTop_toBottomOf="@id/editInstructorEmail"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="5dp"
+            android:visibility="invisible"
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:autofillHints=""
             android:hint="Enter Course Notes"
             style="@style/itemDataStyle" />
+
         </LinearLayout>
     </LinearLayout>
     </ScrollView>
@@ -233,27 +259,12 @@
 
         <TextView
             android:id="@+id/textView1"
-            style="@style/headerTextStyle"
-            android:layout_width="136dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="50dp"
-            android:text="Name"
-            app:layout_constraintLeft_toLeftOf="parent" />
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@id/textView1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             style="@style/headerTextStyle"
-            android:text="Start Date" />
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@id/textView2"
-            android:paddingStart="-20dp"
-            style="@style/headerTextStyle"
-            android:text="End Date" />
+            android:text="Associated Assessments" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -267,40 +278,58 @@
         app:layout_constraintTop_toBottomOf="@id/header_title1"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:contentDescription="@string/add_new_assessment"
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_margin="20dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="10dp"
         android:clickable="true"
+        android:contentDescription="@string/add_new_assessment"
+        android:elevation="10dp"
         android:focusable="true"
         android:onClick="addNewAssessment"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/assessmentListRecyclerView"
         app:srcCompat="@drawable/ic_baseline_add_24" />
 
-    <CheckBox
-        android:id="@+id/setCourseAlertsCheckBox"
+    <TextView
+        android:id="@+id/saveCourseTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/assessmentListRecyclerView"
-        android:layout_marginTop="2dp"
-        android:text="Set Course Alerts"
-         />
+        android:layout_marginEnd="30dp"
+        android:text="Save Course"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/saveFloatingActionButton" />
 
-    <Button
-        android:id="@+id/saveButton"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="68dp"
+        app:layout_constraintTop_toBottomOf="@id/floatingActionButton"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:text="Assessment" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:contentDescription="Save Course"
+        android:id="@+id/saveFloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_margin="10dp"
+        android:imeActionLabel="Save Course"
+        android:elevation="10dp"
         android:clickable="true"
         android:focusable="true"
         android:onClick="onSave"
-        android:text="Save Course Details"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/assessmentListRecyclerView" />
+        android:text="Save"
+        app:icon="@drawable/ic_baseline_save_24" />
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

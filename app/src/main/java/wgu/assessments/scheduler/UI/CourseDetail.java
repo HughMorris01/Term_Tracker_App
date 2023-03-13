@@ -47,6 +47,7 @@ public class CourseDetail extends AppCompatActivity {
     public static String staticCourseInstructorEmail;
     public static String staticCourseNote;
     public static int staticTermId;
+    public static Boolean isNoteVisible = false;
 
     EditText editCourseName;
     Spinner courseStatusSpinner;
@@ -56,7 +57,8 @@ public class CourseDetail extends AppCompatActivity {
     EditText editCourseInstructorPhone;
     EditText editCourseInstructorEmail;
     EditText editCourseNote;
-    CheckBox setCourseAlertsCheckBox;
+    CheckBox setCourseStartAlertCheckBox;
+    CheckBox setCourseEndAlertCheckBox;
 
     int courseId;
     String courseName;
@@ -125,7 +127,8 @@ public class CourseDetail extends AppCompatActivity {
         editCourseInstructorPhone = findViewById(R.id.editInstructorPhone);
         editCourseInstructorEmail = findViewById(R.id.editInstructorEmail);
         editCourseNote = findViewById(R.id.editCourseNote);
-        setCourseAlertsCheckBox = findViewById(R.id.setCourseAlertsCheckBox);
+        setCourseStartAlertCheckBox = findViewById(R.id.setCourseStartAlert);
+        setCourseEndAlertCheckBox = findViewById(R.id.setCourseEndAlert);
 
         editCourseName.setText(courseName);
         editCourseStartDate.setText(courseStartDate);
@@ -134,6 +137,7 @@ public class CourseDetail extends AppCompatActivity {
         editCourseInstructorPhone.setText(courseInstructorPhone);
         editCourseInstructorEmail.setText(courseInstructorEmail);
         editCourseNote.setText(courseNote);
+        isNoteVisible = false;
 
         ArrayAdapter<CharSequence> courseStatusSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.course_status_spinner, android.R.layout.simple_spinner_item);
         courseStatusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -218,8 +222,10 @@ public class CourseDetail extends AppCompatActivity {
             case R.id.shareNote:
                 shareNote();
                 return true;
-            case R.id.notify:
+            case R.id.startAlert:
                 setStartNotification();
+                return true;
+            case R.id.endAlert:
                 setEndNotification();
                 return true;
         }
@@ -239,6 +245,10 @@ public class CourseDetail extends AppCompatActivity {
             Toast.makeText(CourseDetail.this, "Assessments cannot be added until a course is saved", Toast.LENGTH_LONG).show();
             return;
         }
+        if(AssessmentDetail.assessmentCounter >= 5) {
+            Toast.makeText(CourseDetail.this, "Maximum number of assessments have been assigned to this course. Please delete an assessment to create a new one.", Toast.LENGTH_LONG).show();
+            return;
+        }
         Intent intent = new Intent(CourseDetail.this, AssessmentDetail.class);
         intent.putExtra("courseId", courseId);
         startActivity(intent);
@@ -247,6 +257,10 @@ public class CourseDetail extends AppCompatActivity {
     public void addNewAssessment() {
         if(courseId == -1) {
             Toast.makeText(CourseDetail.this, "Assessments cannot be added until a course is saved", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(AssessmentDetail.assessmentCounter >= 5) {
+            Toast.makeText(CourseDetail.this, "Maximum number of assessments have been assigned to this course. Please delete an assessment to create a new one.", Toast.LENGTH_LONG).show();
             return;
         }
         Intent intent = new Intent(CourseDetail.this, AssessmentDetail.class);
@@ -299,8 +313,10 @@ public class CourseDetail extends AppCompatActivity {
         }
 
         Intent intent = new Intent(CourseDetail.this, TermDetail.class);
-        if (setCourseAlertsCheckBox.isChecked()){
+        if (setCourseStartAlertCheckBox.isChecked()){
             setStartNotification();
+        }
+        if (setCourseEndAlertCheckBox.isChecked()){
             setEndNotification();
         }
         startActivity(intent);
@@ -351,8 +367,10 @@ public class CourseDetail extends AppCompatActivity {
         }
 
         Intent intent = new Intent(CourseDetail.this, TermDetail.class);
-        if (setCourseAlertsCheckBox.isChecked()){
+        if (setCourseStartAlertCheckBox.isChecked()){
             setStartNotification();
+        }
+        if (setCourseEndAlertCheckBox.isChecked()){
             setEndNotification();
         }
         startActivity(intent);
@@ -434,5 +452,16 @@ public class CourseDetail extends AppCompatActivity {
         @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent2 = PendingIntent.getBroadcast(CourseDetail.this, MainActivity.numAlert++, intent2,0);
         AlarmManager alarmManager2 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager2.set(AlarmManager.RTC_WAKEUP, trigger2, pendingIntent2);
+    }
+
+    public void displayNote(View view) {
+        if(!isNoteVisible) {
+            editCourseNote.setVisibility(View.VISIBLE);
+            isNoteVisible = true;
+        }
+        else {
+            editCourseNote.setVisibility(View.INVISIBLE);
+            isNoteVisible = false;
+        }
     }
 }

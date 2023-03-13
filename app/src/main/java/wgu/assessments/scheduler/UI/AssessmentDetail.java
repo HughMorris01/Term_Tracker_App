@@ -38,7 +38,8 @@ public class AssessmentDetail extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton objectiveAssessmentRadioButton;
     RadioButton performanceAssessmentRadioButton;
-    CheckBox alertCheckBox;
+    CheckBox setCourseStartAlertCheckBox;
+    CheckBox setCourseEndAlertCheckBox;
 
     int assessmentId;
     String assessmentName;
@@ -48,6 +49,7 @@ public class AssessmentDetail extends AppCompatActivity {
     Boolean isPerformanceAssessment;
     Boolean isAlertSet;
     int courseId;
+    public static int assessmentCounter = 0;
 
     DatePickerDialog.OnDateSetListener startDateDialogListener;
     DatePickerDialog.OnDateSetListener endDateDialogListener;
@@ -78,7 +80,8 @@ public class AssessmentDetail extends AppCompatActivity {
         radioGroup = findViewById(R.id.radioGroup);
         objectiveAssessmentRadioButton = findViewById(R.id.objectiveAssessmentRadioButton);
         performanceAssessmentRadioButton = findViewById(R.id.performanceAssessmentRadioButton);
-        alertCheckBox = findViewById(R.id.alertCheckBox);
+        setCourseStartAlertCheckBox = findViewById(R.id.setCourseStartAlert);
+        setCourseEndAlertCheckBox = findViewById(R.id.setCourseEndAlert);
 
         editAssessmentName.setText(assessmentName);
         editAssessmentStartDate.setText(assessmentStartDate);
@@ -136,8 +139,10 @@ public class AssessmentDetail extends AppCompatActivity {
             case R.id.deleteAssessment:
                 onDelete();
                 return true;
-            case R.id.setNotifications:
+            case R.id.startAlert:
                 setStartNotification();
+                return true;
+            case R.id.endAlert:
                 setEndNotification();
                 return true;
         }
@@ -158,6 +163,7 @@ public class AssessmentDetail extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.US);
         Assessment assessment;
         if(assessmentId == -1) {
+            assessmentCounter++;
             int newAssessmentId;
             if (repository.getAllAssessments().size() != 0) {
                 newAssessmentId = repository.getAllAssessments().get(repository.getAllAssessments().size() - 1).getAssessmentId() + 1;
@@ -179,7 +185,7 @@ public class AssessmentDetail extends AppCompatActivity {
                     Toast.makeText(AssessmentDetail.this, "The type of assessment must be chosen", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(alertCheckBox.isChecked()){
+                if(setCourseStartAlertCheckBox.isChecked()){
                     isAlertSet = true;
                 }
                 assessment = new Assessment(newAssessmentId, assessmentName, startDate, endDate,
@@ -205,7 +211,7 @@ public class AssessmentDetail extends AppCompatActivity {
                     Toast.makeText(AssessmentDetail.this, "The type of assessment must be chosen", Toast.LENGTH_LONG).show();
                     return;
                 }
-                isAlertSet = alertCheckBox.isChecked();
+                isAlertSet = setCourseStartAlertCheckBox.isChecked();
                 assessment = new Assessment(assessmentId, assessmentName, startDate, endDate,
                                  isObjectiveAssessment, isPerformanceAssessment, isAlertSet, courseId);
                 repository.updateAssessment(assessment);
@@ -215,8 +221,10 @@ public class AssessmentDetail extends AppCompatActivity {
         }
 
         Intent intent = new Intent(AssessmentDetail.this, CourseDetail.class);
-        if (alertCheckBox.isChecked()){
+        if (setCourseStartAlertCheckBox.isChecked()){
             setStartNotification();
+        }
+        if (setCourseEndAlertCheckBox.isChecked()){
             setEndNotification();
         }
         startActivity(intent);
@@ -228,6 +236,7 @@ public class AssessmentDetail extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.US);
         Assessment assessment;
         if(assessmentId == -1) {
+            assessmentCounter++;
             int newAssessmentId;
             if (repository.getAllAssessments().size() != 0) {
                 newAssessmentId = repository.getAllAssessments().get(repository.getAllAssessments().size() - 1).getAssessmentId() + 1;
@@ -249,7 +258,7 @@ public class AssessmentDetail extends AppCompatActivity {
                     Toast.makeText(AssessmentDetail.this, "The type of assessment must be chosen", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(alertCheckBox.isChecked()){
+                if(setCourseStartAlertCheckBox.isChecked()){
                     isAlertSet = true;
                 }
                 assessment = new Assessment(newAssessmentId, assessmentName, startDate, endDate,
@@ -275,7 +284,7 @@ public class AssessmentDetail extends AppCompatActivity {
                     Toast.makeText(AssessmentDetail.this, "The type of assessment must be chosen", Toast.LENGTH_LONG).show();
                     return;
                 }
-                isAlertSet = alertCheckBox.isChecked();
+                //isAlertSet = alertCheckBox.isChecked();
                 assessment = new Assessment(assessmentId, assessmentName, startDate, endDate,
                         isObjectiveAssessment, isPerformanceAssessment, isAlertSet, courseId);
                 repository.updateAssessment(assessment);
@@ -285,8 +294,10 @@ public class AssessmentDetail extends AppCompatActivity {
         }
 
         Intent intent = new Intent(AssessmentDetail.this, CourseDetail.class);
-        if (alertCheckBox.isChecked()){
+        if (setCourseStartAlertCheckBox.isChecked()){
             setStartNotification();
+        }
+        if (setCourseEndAlertCheckBox.isChecked()){
             setEndNotification();
         }
         startActivity(intent);
@@ -309,7 +320,7 @@ public class AssessmentDetail extends AppCompatActivity {
         repository.deleteAssessment(assessment);
         assert assessment != null;
         Toast.makeText(AssessmentDetail.this, assessment.getAssessmentName() + " has been successfully deleted", Toast.LENGTH_LONG).show();
-
+        assessmentCounter--;
         Intent intent = new Intent(AssessmentDetail.this, CourseDetail.class);
         startActivity(intent);
     }

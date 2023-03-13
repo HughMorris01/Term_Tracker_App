@@ -13,8 +13,12 @@
     <item android:title="Share Note"
         android:id="@+id/shareNote"
         android:onClick="onOptionsItemsSelected" />
-    <item android:title="Set Notifications"
-        android:id="@+id/notify"
+    <item android:title="Set Start Alert"
+        android:id="@+id/startAlert"
         android:onClick="onOptionsItemsSelected"/>
+    <item android:title="Set End Alert"
+        android:id="@+id/endAlert"
+        android:onClick="onOptionsItemsSelected"/>
+
 
 </menu>

@@ -73,8 +73,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             String courseName = current.getCourseName();
             holder.courseItemView1.setText(courseName);
             String courseStartDate = current.getCourseStartDateString();
+            courseStartDate = "Start: " + courseStartDate;
             holder.courseItemView2.setText(courseStartDate);
             String courseEndDate = current.getCourseEndDateString();
+            courseEndDate = "End: " + courseEndDate;
             holder.courseItemView3.setText(courseEndDate);
         }
         else {

@@ -15,7 +15,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="@color/teal_200"
         android:orientation="horizontal">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +27,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/termListRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="120dp"
         android:background="@color/teal_700"
         android:scrollbars="vertical"
         android:padding="3dp"
@@ -36,18 +35,18 @@
         app:layout_constraintTop_toBottomOf="@id/header_title1"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:contentDescription="@string/create_new_term"
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/termListRecyclerView"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="48dp"
         android:elevation="10dp"
         android:clickable="true"
+        android:contentDescription="@string/create_new_term"
         android:focusable="true"
         android:onClick="createNewTerm"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/termListRecyclerView"
         app:srcCompat="@drawable/ic_baseline_add_24" />
 
     <TextView
@@ -56,7 +55,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/floatingActionButton"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginEnd="37dp"
+        android:layout_marginEnd="45dp"
         android:layout_marginTop="5dp"
         android:text="Add Term" />
 
